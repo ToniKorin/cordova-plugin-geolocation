@@ -7,9 +7,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-#
+# 
 # http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,12 +19,11 @@
 #
 -->
 # Release Notes
-
-### 4.0.1 (Dec 27, 2017)
+### 4.0.3 (Feb 08, 2018)
+* [CB-13680](https://issues.apache.org/jira/browse/CB-13680) (iOS) "Always" locate permission first
+* (Android) Changed required feature from "location.gps" to "location"
 * [CB-13705](https://issues.apache.org/jira/browse/CB-13705) Fix to allow 4.0.0 version install
 
-### 4.0.0 (Dec 15, 2017)
-* [CB-13664](https://issues.apache.org/jira/browse/CB-13664) remove deprecated platforms
 
 ### 3.0.0 (Nov 06, 2017)
 * [CB-13267](https://issues.apache.org/jira/browse/CB-13267) (iOS): Remove **iOS** usage descriptions
