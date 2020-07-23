@@ -19,6 +19,9 @@
 #
 -->
 # Release Notes
+### 4.0.5 (Jul 23, 2020)
+* ACCESS_BACKGROUND_LOCATION permission for API level 29
+
 ### 4.0.3 (Feb 08, 2018)
 * [CB-13680](https://issues.apache.org/jira/browse/CB-13680) (iOS) "Always" locate permission first
 * (Android) Changed required feature from "location.gps" to "location"

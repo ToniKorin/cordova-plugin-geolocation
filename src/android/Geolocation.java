@@ -53,7 +53,7 @@ public class Geolocation extends CordovaPlugin {
                 return true;
             }
             else {
-                PermissionHelper.requestPermissions(this, 0, permissions);
+                PermissionHelper.requestPermissions(this, 0, askedPermissions());
             }
             return true;
         }
@@ -99,9 +99,18 @@ public class Geolocation extends CordovaPlugin {
 
     public void requestPermissions(int requestCode)
     {
-        PermissionHelper.requestPermissions(this, requestCode, permissions);
+        PermissionHelper.requestPermissions(this, requestCode, askedPermissions());
     }
 
-
+    private String [] askedPermissions(){
+        /* Add ACCESS_BACKGROUND_LOCATION persmission for API level 29 (Android 10 / Q )*/
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            String[] qPermissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                    "android.permission.ACCESS_BACKGROUND_LOCATION"};
+            return qPermissions;
+        } else {
+            return permissions;
+        }
+    }
 
 }
