@@ -19,6 +19,9 @@
 #
 -->
 # Release Notes
+### 4.1.0 (Jul 1, 2024)
+* Fixed permission control
+
 ### 4.0.5 (Jul 23, 2020)
 * ACCESS_BACKGROUND_LOCATION permission for API level 29
 

@@ -37,6 +37,7 @@ public class Geolocation extends CordovaPlugin {
 
     String TAG = "GeolocationPlugin";
     CallbackContext context;
+    private static boolean askedBackgroundLocation = false;
 
     String [] permissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION };
 
@@ -48,12 +49,14 @@ public class Geolocation extends CordovaPlugin {
         {
             if(hasPermisssion())
             {
+                LOG.d(TAG, "Permissions OK");
                 PluginResult r = new PluginResult(PluginResult.Status.OK);
                 context.sendPluginResult(r);
                 return true;
             }
             else {
-                PermissionHelper.requestPermissions(this, 0, askedPermissions());
+                LOG.d(TAG, "Permissions request needed");
+                PermissionHelper.requestPermissions(this, 0, permissions);
             }
             return true;
         }
@@ -76,13 +79,21 @@ public class Geolocation extends CordovaPlugin {
                 }
 
             }
-            result = new PluginResult(PluginResult.Status.OK);
-            context.sendPluginResult(result);
+            /* Two permission request needed ACCESS_BACKGROUND_LOCATION persmission for API level 30 (Android 11 / R )*/
+            if (!askedBackgroundLocation && android.os.Build.VERSION.SDK_INT >= 30) {
+                LOG.d(TAG, "ACCESS_BACKGROUND_LOCATION Permissions request needed");
+                askedBackgroundLocation = true;
+                String[] qPermissions = {"android.permission.ACCESS_BACKGROUND_LOCATION"};
+                PermissionHelper.requestPermissions(this, 0, qPermissions);
+            } else {
+                result = new PluginResult(PluginResult.Status.OK);
+                context.sendPluginResult(result);
+            }
         }
     }
 
     public boolean hasPermisssion() {
-        for(String p : permissions)
+        for(String p : askedPermissions())
         {
             if(!PermissionHelper.hasPermission(this, p))
             {
@@ -99,12 +110,12 @@ public class Geolocation extends CordovaPlugin {
 
     public void requestPermissions(int requestCode)
     {
-        PermissionHelper.requestPermissions(this, requestCode, askedPermissions());
+        PermissionHelper.requestPermissions(this, requestCode, permissions);
     }
 
     private String [] askedPermissions(){
-        /* Add ACCESS_BACKGROUND_LOCATION persmission for API level 29 (Android 10 / Q )*/
-        if (android.os.Build.VERSION.SDK_INT >= 29) {
+        /* Two permission request needed ACCESS_BACKGROUND_LOCATION persmission for API level 30 (Android 11 / R )*/
+        if (android.os.Build.VERSION.SDK_INT >= 30) {
             String[] qPermissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
                     "android.permission.ACCESS_BACKGROUND_LOCATION"};
             return qPermissions;

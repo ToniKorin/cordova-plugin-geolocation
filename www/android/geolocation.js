@@ -28,6 +28,10 @@ var PositionError = require('./PositionError');
 var pluginToNativeWatchMap = {};
 
 module.exports = {
+    getPermission: function (success, error) {
+        exec(success, error, 'Geolocation', 'getPermission', []);
+    },
+
     getCurrentPosition: function (success, error, args) {
         var win = function () {
             var geo = cordova.require('cordova/modulemapper').getOriginalSymbol(window, 'navigator.geolocation'); // eslint-disable-line no-undef
